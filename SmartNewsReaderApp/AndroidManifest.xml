@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.news2day"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name">
+        <activity
+            android:name="com.news2day.main.MainActivity"
+            android:theme="@android:style/Theme.Black"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.news2day.main.AboutUs"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black">
+        </activity>
+        <activity
+            android:name="com.news2day.main.InputRegisrationCodeActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black">
+        </activity>
+        <activity
+            android:name="com.news2day.main.LoginActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black">
+        </activity>
+        <activity
+            android:name="com.news2day.main.NewsFeeds"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Black">
+        </activity>
+        
+        <activity
+            android:name="com.news2day.preference.Preferences"
+            android:label="@string/app_name" >
+        </activity>
+    </application>
+
+</manifest>

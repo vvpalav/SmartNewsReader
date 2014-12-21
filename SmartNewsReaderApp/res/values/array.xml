@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="news_list_items">
+        <item >Home</item>
+        <item >Find People</item>
+        <item >Photos</item>
+        <item >Communities</item>
+        <item >Pages</item>
+        <item >What\'s Hot</item>
+    </string-array>
+    <array name="news_list_icons">
+        <item>@drawable/user_logo_25x25</item>
+        <item>@drawable/user_logo_25x25</item>
+        <item>@drawable/user_logo_25x25</item>
+        <item>@drawable/user_logo_25x25</item>
+        <item>@drawable/user_logo_25x25</item>
+        <item>@drawable/user_logo_25x25</item>
+    </array>
+</resources>
