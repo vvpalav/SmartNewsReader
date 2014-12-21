@@ -146,10 +146,10 @@ public class RequestHandler {
 	}
 
 	public static void sendEmail(String to, String body, String sub) {
-		final String from = "completetravelplanner@gmail.com";
+		final String from = "smartnewsreader23@gmail.com";
 		final String host = "smtp.gmail.com";
-		final String username = "completetravelplanner@gmail.com";
-		final String password = "admin_cpt";
+		final String username = "smartnewsreader23@gmail.com";
+		final String password = "projectsnr";
 
 		// Setup mail server
 		Properties props = new Properties();
@@ -161,18 +161,17 @@ public class RequestHandler {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.port", "465");
 
-		Session session = Session.getDefaultInstance(props,
-				new Authenticator() {
-					@Override
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				});
+		Session session = Session.getDefaultInstance(props, new Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}		
+		});
+		
 		try {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			message.setSubject(sub);
 			message.setText(body);
 			Transport.send(message);

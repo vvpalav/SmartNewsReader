@@ -13,18 +13,16 @@ import com.amazonaws.util.json.JSONObject;
 import com.mysql.jdbc.Connection;
 
 public class DBHelper {
-	private final String dbURL = "jdbc:mysql://db-project.ctg5kek7aepz.us-east-1.rds.amazonaws.com:3306/ProjectDBSchema";
+	private final String dbURL = "jdbc:mysql://tweetmap.cjimqvmene65.us-west-2.rds.amazonaws.com:3306/tweetrecorder";
 	private Connection conn;
 	private static DBHelper db;
-	private static final Logger log = Logger
-			.getLogger(DBHelper.class.getName());
-
+	private final Logger log = Logger.getLogger(DBHelper.class.getName());
+	
 	private DBHelper() {
 		try {
 			System.out.println("Connecting to database");
 			Class.forName("com.mysql.jdbc.Driver");
-			this.conn = (Connection) DriverManager.getConnection(dbURL,
-					"admin", "adminpassword");
+			this.conn = (Connection) DriverManager.getConnection(dbURL, "edge", "edge_123");
 			System.out.println("Connected to database");
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Cannot connect the database!");

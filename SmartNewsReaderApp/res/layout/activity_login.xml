@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
+        
         <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
@@ -46,8 +46,8 @@
             android:padding="10dp"
             android:hint="@string/phone"
 		    android:inputType="phone"
-            android:textColorHint="#bbbbbb"
-            />
+            android:textColorHint="#bbbbbb"/>
+        
         <EditText 
             android:id="@+id/person_email"
             android:layout_width="match_parent"
@@ -58,15 +58,13 @@
             android:padding="10dp"
 		    android:hint="@string/email"
 		    android:inputType="textEmailAddress"
-            android:textColorHint="#bbbbbb"
-            android:password="true"
-            />
+            android:textColorHint="#bbbbbb"/>
         
         <Button
             android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/rounded_button"

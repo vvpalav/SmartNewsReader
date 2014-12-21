@@ -17,7 +17,7 @@ import android.util.Log;
 
 public class ServiceHandler {
 
-	private final String serverUrl = "http://completetravelplanner.appspot.com/completetravelplannerserver";
+	private final String serverUrl = "http://tweetmapserverenvn-amkdftex7w.elasticbeanstalk.com/SmartNewsReaderServer";
 	private Context myContext;
 
 	public ServiceHandler(Context myContext) {

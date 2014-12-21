@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+   <servlet>
+  	  <display-name>SmartNewsReaderServer</display-name>
+      <servlet-name>SmartNewsReaderServer</servlet-name>
+      <servlet-class>com.example.server.SmartNewsReaderServer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>SmartNewsReaderServer</servlet-name>
+      <url-pattern>/SmartNewsReaderServer</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

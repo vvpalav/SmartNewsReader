@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 					timer.cancel();
 					timer.purge();
 					Log.i("MainActivity", "starting home screen");
-					//startActivity(new Intent(MainActivity.this,HomeScreenActivity.class));
+					startActivity(new Intent(MainActivity.this,NewsFeeds.class));
 					finish();
 				}
 			}
@@ -52,11 +52,9 @@ public class MainActivity extends Activity {
 			finish();
 		} else {
 			Log.i("MainActivity", "starting login screen");
-	//		startActivity(new Intent(this, LoginActivity.class));
-			startActivity(new Intent(this, NewsFeeds.class));
+			startActivity(new Intent(this, LoginActivity.class));
 			finish();
 		}
-		
 	}
 
 	public static Context getContextOfApplication() {

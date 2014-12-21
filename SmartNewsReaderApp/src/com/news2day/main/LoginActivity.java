@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -140,10 +141,10 @@ public class LoginActivity extends Activity {
 		userNameView.setError(null);
 		String userName = userNameView.getText().toString().trim();
 
-		userNameView.setError(null);
+		telephoneView.setError(null);
 		String telephone = telephoneView.getText().toString().trim();
 
-		userNameView.setError(null);
+		emailView.setError(null);
 		String email = emailView.getText().toString().trim();
 
 		if (TextUtils.isEmpty(userName)) {
@@ -158,7 +159,7 @@ public class LoginActivity extends Activity {
 		} else if (!email.contains("@")) {
 			emailView.setError(getString(R.string.error_invalid_email));
 			focusView = emailView;
-		} else if (TextUtils.isDigitsOnly(telephone)) {
+		} else if (!TextUtils.isDigitsOnly(telephone)) {
 			telephoneView.setError(getString(R.string.error_incorrect_phone));
 			focusView = telephoneView;
 		} else {

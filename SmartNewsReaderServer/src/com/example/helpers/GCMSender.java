@@ -14,9 +14,8 @@ import com.amazonaws.util.json.JSONObject;
 
 public class GCMSender {
 	private static final String serverURL = "https://android.googleapis.com/gcm/send";
-	private static final String authKey = "AIzaSyB2Fwei8Y2pKUQpUmdZ49W86T833Bv4jpE";
-	private static final Logger log = Logger.getLogger(GCMSender.class
-			.getName());
+	private static final String authKey = "AIzaSyCTnUS6Dpp5m7cy4Y3nsgmS6ccbylMn-C8";
+	private static Logger log = Logger.getLogger(GCMSender.class.getName());
 
 	public static void sendGCMNotification(String[] regIds, String message) {
 		try {
