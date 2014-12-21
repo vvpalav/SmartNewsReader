@@ -3,9 +3,6 @@ package com.news2day.main;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +10,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.ProgressBar;
 
 import com.news2day.R;
-import com.news2day.helpers.ServiceHandler;
-import com.news2day.preference.Preferences;
 
 public class MainActivity extends Activity {
 	private int progress = 0;

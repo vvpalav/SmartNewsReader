@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.news2day.R;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.news2day.main.MainActivity;
 
 public class GcmIntentService extends IntentService {
@@ -23,25 +23,25 @@ public class GcmIntentService extends IntentService {
 		super("GcmIntentService");
 	}
 
-	@Override
-	protected void onHandleIntent(Intent arg0) {
-		Bundle extras = arg0.getExtras();
-		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-		String messageType = gcm.getMessageType(arg0);
-		Log.i(TAG, "This is to verify that it reaches here");
-		if(!extras.isEmpty()){
-			if(GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)){
-				sendNotification("Send error: - " + extras.toString());
-			}else if(GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)){
-				sendNotification("Deleted messages on server:  "+ extras.toString()); 
-			}else if(GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)){
-				//to be handled after detailed discussion 
-				Log.i(TAG, extras.toString());
-				sendNotification("Received " +  extras.toString());
-			}
-		}
-		GcmBroadcastReceiver.completeWakefulIntent(arg0);
-	}
+//	@Override
+//	protected void onHandleIntent(Intent arg0) {
+//		Bundle extras = arg0.getExtras();
+//		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+//		String messageType = gcm.getMessageType(arg0);
+//		Log.i(TAG, "This is to verify that it reaches here");
+//		if(!extras.isEmpty()){
+//			if(GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)){
+//				sendNotification("Send error: - " + extras.toString());
+//			}else if(GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)){
+//				sendNotification("Deleted messages on server:  "+ extras.toString()); 
+//			}else if(GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)){
+//				//to be handled after detailed discussion 
+//				Log.i(TAG, extras.toString());
+//				sendNotification("Received " +  extras.toString());
+//			}
+//		}
+//		GcmBroadcastReceiver.completeWakefulIntent(arg0);
+//	}
 
 	private void sendNotification(String string){
 		Log.i(TAG, "In Send Notification function");
@@ -67,5 +67,11 @@ public class GcmIntentService extends IntentService {
 				.setAutoCancel(true);
 				mBuilder.setContentIntent(contentIntent);
 				mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+	}
+
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		
 	}
 }

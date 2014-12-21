@@ -22,9 +22,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.news2day.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+//import com.google.android.gms.common.ConnectionResult;
+//import com.google.android.gms.common.GooglePlayServicesUtil;
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.news2day.helpers.ServiceHandler;
 
 public class InputRegistrationCodeActivity extends Activity {
@@ -35,7 +35,7 @@ public class InputRegistrationCodeActivity extends Activity {
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private String SENDER_ID = "80266458481";
 	public static final String TAG = "GCM Services";
-	private GoogleCloudMessaging gcm;
+	//private GoogleCloudMessaging gcm;
 	private Context context;
 
 	String regid;
@@ -48,7 +48,7 @@ public class InputRegistrationCodeActivity extends Activity {
 		final Intent input = getIntent();
 		setTitle("Registration Authentication");
 		if (checkPlayServices()) {
-			gcm = GoogleCloudMessaging.getInstance(this);
+			//gcm = GoogleCloudMessaging.getInstance(this);
 			regid = getRegistrationId(context);
 
 			if (regid.isEmpty()) {
@@ -137,15 +137,15 @@ public class InputRegistrationCodeActivity extends Activity {
 				// TODO Auto-generated method stub
 				String msg = "";
 				try {
-					if (gcm == null) {
-						gcm = GoogleCloudMessaging.getInstance(context);
-					}
-					regid = gcm.register(SENDER_ID);
+//					if (gcm == null) {
+//						gcm = GoogleCloudMessaging.getInstance(context);
+//					}
+//					regid = gcm.register(SENDER_ID);
 					msg = "Device registered, registration ID = " + regid;
 					Log.i(TAG, msg);
 					sendRegistrationToBackend();
 					storeRegistrationId(context, regid);
-				} catch (IOException e) {
+				} catch (Exception e) {
 					msg = "Error" + e.getMessage();
 					Log.i(TAG, msg);
 				}
@@ -225,18 +225,18 @@ public class InputRegistrationCodeActivity extends Activity {
 
 	private boolean checkPlayServices() {
 		// TODO Auto-generated method stub
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (resultCode != ConnectionResult.SUCCESS) {
-			if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-				GooglePlayServicesUtil.getErrorDialog(resultCode, this,
-						PLAY_SERVICES_RESOLUTION_REQUEST).show();
-			} else {
-				Log.i(TAG, "This device is not supported");
-				finish();
-			}
-			return false;
-		}
+//		int resultCode = GooglePlayServicesUtil
+//				.isGooglePlayServicesAvailable(this);
+//		if (resultCode != ConnectionResult.SUCCESS) {
+//			if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+//				GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+//						PLAY_SERVICES_RESOLUTION_REQUEST).show();
+//			} else {
+//				Log.i(TAG, "This device is not supported");
+//				finish();
+//			}
+//			return false;
+//		}
 		return true;
 	}
 
