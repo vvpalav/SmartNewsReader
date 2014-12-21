@@ -1,9 +1,8 @@
 package com.news2day.main;
 
-import java.io.IOException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,10 +20,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.news2day.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.news2day.R;
 import com.news2day.helpers.ServiceHandler;
 
 public class InputRegistrationCodeActivity extends Activity {
@@ -123,17 +122,14 @@ public class InputRegistrationCodeActivity extends Activity {
 				}
 			});
 		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
 
 	private void registerInBackground() {
-		// TODO Auto-generated method stub
 		new AsyncTask<Void, Void, String>() {
 			@Override
 			protected String doInBackground(Void... params) {
-				// TODO Auto-generated method stub
 				String msg = "";
 				try {
 					if (gcm == null) {
