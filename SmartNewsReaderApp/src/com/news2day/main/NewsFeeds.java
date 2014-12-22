@@ -44,7 +44,6 @@ public class NewsFeeds extends ActionBarActivity {
 				hashMap.put(json.getString("title"), json);
 				newsFeedsList.add(json.getString("title"));
 			}catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -59,8 +58,8 @@ public class NewsFeeds extends ActionBarActivity {
 				
 			}
 		});
-
 	}
+	
 	public void startDetailActivity(ArrayAdapter<String> arrayAdapter, int position){
 		JSONObject json = hashMap.get(arrayAdapter.getItem(position));
 		Intent intent = new Intent();

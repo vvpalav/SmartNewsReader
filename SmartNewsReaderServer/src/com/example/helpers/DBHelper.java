@@ -275,4 +275,72 @@ public class DBHelper {
 		}
 		return json;
 	}
+	
+	public JSONArray addUserSubscription(JSONObject json){
+		JSONArray array = new JSONArray();
+		String sql = "insert into user_subscription_details values (?, ?)";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, json.getString("telephone"));
+			stmt.setString(2, getSourceIDFromTitle(json.getString("source_title")));
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
+	
+	public String getSourceIDFromTitle(String title){
+		String sql = "select title from news_sites_info where title = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, title);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public JSONArray getSitesList(){
+		JSONArray array = new JSONArray();
+		String sql = "select title from news_sites_info";
+		ResultSet rs;
+		try {
+			rs = conn.createStatement().executeQuery(sql);
+			while(rs.next()){
+				array.put(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
+	
+	public JSONArray getNewsItemsFromTitle(String title){
+		JSONArray array = new JSONArray();
+		String sql = "select item_id, title, abstract, text, url, datetime " +
+				" from news_item_info n, news_sites_info s "
+				+ " where n.source_id = s.source_id and s.title = ? ";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, title);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				JSONObject json = new JSONObject();
+				json.put("item_id", rs.getString(1));
+				json.put("title", rs.getString(2));
+				json.put("abstract", rs.getString(3));
+				json.put("source_title", title);
+				json.put("text", rs.getString(4));
+				json.put("url", rs.getString(5));
+				json.put("datetime", rs.getString(6));
+				array.put(json);
+			}
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
+		return array;
+	}
 }

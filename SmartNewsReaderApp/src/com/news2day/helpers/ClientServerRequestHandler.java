@@ -1,6 +1,5 @@
 package com.news2day.helpers;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +76,12 @@ public class ClientServerRequestHandler {
 					flag = false;
 				} 
 				shared.edit().putBoolean("is_user_accepted", flag).commit();
+			} else if (action.equalsIgnoreCase("ADD_USER_SUBSCRIPTION_RESPONSE")){
+				JSONArray array = object.getJSONArray("data");
+				for(int i = 0; i < array.length(); i++){
+					db.insertNewsitemInfo(array.getJSONObject(i));
+				}
+				shared.edit().putBoolean("received_response", true).commit();
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
