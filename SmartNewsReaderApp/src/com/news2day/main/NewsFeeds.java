@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.news2day.AddSiteActivity;
 import com.news2day.R;
 import com.news2day.preference.Preferences;
 
@@ -88,6 +89,9 @@ public class NewsFeeds extends ActionBarActivity {
 		case R.id.exit:
 			finish();
 			break;
+			
+		case R.id.site:
+			startActivity(new Intent(this, AddSiteActivity.class));
 		}
 
 		return super.onOptionsItemSelected(item);
