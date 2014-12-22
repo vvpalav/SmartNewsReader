@@ -62,6 +62,7 @@ public class RequestHandler {
 							response.put("email_id", object.get("email_id"));
 							response.put("telephone", object.get("telephone"));
 							response.put("name", object.get("name"));
+							response.put("list", db.getSitesList());
 						} else {
 							response.put("response", "Failure");
 						}
@@ -71,10 +72,15 @@ public class RequestHandler {
 						response.put("email_id", object.get("email_id"));
 						response.put("telephone", object.get("telephone"));
 						response.put("name", object.get("name"));
+						response.put("source_list", db.getSitesList());
 					}
 				} else {
 					response.put("response", "Failure");
 				}
+				break;
+			case "ADD_USER_SUBSCRIPTION":
+				db.addUserSubscription(object);
+				response.put("data", db.getNewsItemsFromTitle(object.getString("source_title")));
 				break;
 			default:
 				response.put("message", "Unknown Transaction");

@@ -1,14 +1,22 @@
 package com.news2day.database;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.news2day.main.MainActivity;
+
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -71,6 +79,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public ArrayList<String> getUserSubscriptionList(){
+		ArrayList<String> list = new ArrayList<String>();
+		String sql = "select distinct(source_title) from news_item_info";
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(sql, null);
+		try {
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				list.add(cursor.getString(0));
+			}
+		} finally {
+			cursor.close();
+		}
+		return list;
+	}
+	
+	@SuppressLint("NewApi")
+	public ArrayList<String> getRemainingListOfSourceTitle(){
+		ArrayList<String> list = getUserSubscriptionList();
+		SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainActivity
+				.getContextOfApplication());
+		Set<String> set = shared.getStringSet("source_list", null);
+		for(int i = 0; i < list.size(); i++){
+			set.remove(list.get(i));
+		}
+		list.clear();
+		for(Object str : set.toArray()){
+			list.add((String)str);
+		}
+		return list;
 	}
 	
 	public JSONArray getNewsItemsForTitle(String title){
