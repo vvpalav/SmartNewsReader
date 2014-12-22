@@ -38,7 +38,6 @@ public class NewsFeeds extends ActionBarActivity {
          newsList.setOnItemClickListener(new OnItemClickListener()
             {
                      // argument position gives the index of item which is clicked
-					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
 						Toast.makeText(getApplicationContext(), "Animal Selected : "+position,   Toast.LENGTH_LONG).show();
