@@ -1,9 +1,14 @@
 package com.news2day.helpers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -32,6 +37,7 @@ public class ClientServerRequestHandler {
 		}
 	}
 
+	@SuppressLint("NewApi")
 	public static void handleServerResponse(String line) {
 		try {
 			Log.i("from_server", line);
@@ -50,6 +56,12 @@ public class ClientServerRequestHandler {
 					shared.edit().putString("telephone", object.getString("telephone"))
 						.putString("email_id", object.getString("email_id"))
 						.putString("name", object.getString("name")).commit();
+					JSONArray ll = object.getJSONArray("source_list");
+					Set<String> set = new HashSet<String>();
+					for(int i = 0; i < ll.length(); i++){
+						set.add(ll.getString(i));
+					}
+					shared.edit().putStringSet("source_list", set).commit();
 				}
 				shared.edit().putBoolean("is_user_reg", flag).commit();
 			} else if (action.equals("NEW_USER_REGISTRATION_RESPONSE")) {
