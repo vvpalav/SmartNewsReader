@@ -100,9 +100,8 @@ public class InputRegistrationCodeActivity extends Activity {
 									} else {
 										shared.edit().remove("user_login_info")
 												.commit();
-										// startActivity(new
-										// Intent(InputRegistrationCodeActivity.this,
-										// HomeScreenActivixty.class));
+										startActivity(new
+										 Intent(InputRegistrationCodeActivity.this,NewsFeeds.class));
 										finish();
 										break;
 									}
