@@ -282,7 +282,7 @@ public class DBHelper {
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, json.getString("telephone"));
-			stmt.setString(2, getSourceIDFromTitle(json.getString("title")));
+			stmt.setString(2, getSourceIDFromTitle(json.getString("source_title")));
 		} catch (SQLException | JSONException e) {
 			e.printStackTrace();
 		}

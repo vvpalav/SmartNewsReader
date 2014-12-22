@@ -62,7 +62,7 @@ public class RequestHandler {
 							response.put("email_id", object.get("email_id"));
 							response.put("telephone", object.get("telephone"));
 							response.put("name", object.get("name"));
-							response.put("list", db.getSitesList());
+							response.put("source_list", db.getSitesList());
 						} else {
 							response.put("response", "Failure");
 						}
