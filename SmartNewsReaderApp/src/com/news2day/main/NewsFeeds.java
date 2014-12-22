@@ -1,5 +1,7 @@
 package com.news2day.main;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +10,59 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup; 
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.news2day.R;
 import com.news2day.preference.Preferences;
 
 public class NewsFeeds extends ActionBarActivity {
+	 ArrayList<String> newsFeedsList;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_news_feed);
+		setContentView(R.layout.news_feed_list);
+		ListView newsList=(ListView)findViewById(R.id.news_list);
+		newsFeedsList = new ArrayList<String>();
+         getnewsFeedsList();
+         // Create The Adapter with passing ArrayList as 3rd parameter
+         ArrayAdapter<String> arrayAdapter =      
+         new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, newsFeedsList);
+         // Set The Adapter
+         newsList.setAdapter(arrayAdapter); 
+         
+         // register onClickListener to handle click events on each item
+         newsList.setOnItemClickListener(new OnItemClickListener()
+            {
+                     // argument position gives the index of item which is clicked
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						Toast.makeText(getApplicationContext(), "Animal Selected : "+position,   Toast.LENGTH_LONG).show();
+					}
+            });
+		  
 	}
+    void getnewsFeedsList()
+    {
+    	newsFeedsList.add("DOG");
+    	newsFeedsList.add("CAT");
+    	newsFeedsList.add("HORSE");
+    	newsFeedsList.add("ELEPHANT");
+    	newsFeedsList.add("LION");
+    	newsFeedsList.add("COW");
+        newsFeedsList.add("MONKEY");
+        newsFeedsList.add("DEER");
+        newsFeedsList.add("RABBIT");
+        newsFeedsList.add("BEER");
+        newsFeedsList.add("DONKEY");
+        newsFeedsList.add("LAMB");
+        newsFeedsList.add("GOAT");
+        
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

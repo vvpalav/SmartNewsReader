@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
 			finish();
 		} else {
 			Log.i("MainActivity", "starting login screen");
-			startActivity(new Intent(this, LoginActivity.class));
+			startActivity(new Intent(this, NewsFeeds.class));
 			finish();
 		}
 	}
