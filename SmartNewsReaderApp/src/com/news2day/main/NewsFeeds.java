@@ -26,9 +26,13 @@ public class NewsFeeds extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news_feed_list);
-		ListView newsList=(ListView)findViewById(R.id.news_list);
+		
+		  
+	}
+    void getnewsFeedsList(String title)
+    {
+    	ListView newsList=(ListView)findViewById(R.id.news_list);
 		newsFeedsList = new ArrayList<String>();
-         getnewsFeedsList();
          // Create The Adapter with passing ArrayList as 3rd parameter
          ArrayAdapter<String> arrayAdapter =      
          new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, newsFeedsList);
@@ -44,23 +48,6 @@ public class NewsFeeds extends ActionBarActivity {
 						Toast.makeText(getApplicationContext(), "Animal Selected : "+position,   Toast.LENGTH_LONG).show();
 					}
             });
-		  
-	}
-    void getnewsFeedsList()
-    {
-    	newsFeedsList.add("DOG");
-    	newsFeedsList.add("CAT");
-    	newsFeedsList.add("HORSE");
-    	newsFeedsList.add("ELEPHANT");
-    	newsFeedsList.add("LION");
-    	newsFeedsList.add("COW");
-        newsFeedsList.add("MONKEY");
-        newsFeedsList.add("DEER");
-        newsFeedsList.add("RABBIT");
-        newsFeedsList.add("BEER");
-        newsFeedsList.add("DONKEY");
-        newsFeedsList.add("LAMB");
-        newsFeedsList.add("GOAT");
         
     }
 
@@ -91,12 +78,27 @@ public class NewsFeeds extends ActionBarActivity {
 			break;
 			
 		case R.id.site:
-			startActivity(new Intent(this, AddSiteActivity.class));
+			startActivityForResult(new Intent(this, AddSiteActivity.class),1);
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	@Override
+	
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		if(arg0==1) {
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 	public static class PlaceholderFragment extends Fragment {
 		public PlaceholderFragment() {
 		}

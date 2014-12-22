@@ -7,9 +7,12 @@ import org.json.JSONObject;
 
 import com.news2day.database.DatabaseHelper;
 import com.news2day.helpers.ServiceHandler;
+import com.news2day.main.InputRegistrationCodeActivity;
 import com.news2day.main.MainActivity;
+import com.news2day.main.NewsFeeds;
 
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -63,6 +66,18 @@ public class AddSiteActivity extends ActionBarActivity {
 											.put("transaction_type", "ADD_USER_SUBSCRIPTION").toString());
 								} catch (JSONException e) {
 									e.printStackTrace();
+								}
+								while (true) {
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									if (shared.contains("received_response")) {
+										shared.edit().remove("received_response").commit();
+										finish();
+									}
 								}
 							}
 		            });
