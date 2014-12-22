@@ -20,11 +20,17 @@ public class CronJobHandler {
 		sqsHandler = AWSSQSHandler.getSQSHandler();
 		db = DBHelper.getDBInstance();
 	}
+	
+	public static void main(String[] args){
+		CronJobHandler cron = new CronJobHandler();
+		cron.startCronMonitoring();
+	}
 
 	public void startCronMonitoring() {
-		while (flag) {
+		//while (flag) {
 			try {
-				Thread.sleep(sec * min * milisec);
+				//Thread.sleep(sec * min * milisec);
+				Thread.sleep(1000);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
 				List<Integer> list = db.getCronEntry(cal.get(Calendar.DAY_OF_WEEK),
@@ -36,6 +42,6 @@ public class CronJobHandler {
 			} catch (InterruptedException | JSONException e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 	}
 }

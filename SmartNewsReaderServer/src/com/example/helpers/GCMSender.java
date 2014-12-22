@@ -17,12 +17,8 @@ public class GCMSender {
 	private static final String authKey = "AIzaSyCTnUS6Dpp5m7cy4Y3nsgmS6ccbylMn-C8";
 	private static Logger log = Logger.getLogger(GCMSender.class.getName());
 
-	public static void sendGCMNotification(String[] regIds, String message) {
+	public static void sendGCMNotification(JSONArray array, String message) {
 		try {
-			JSONArray array = new JSONArray();
-			for (String id : regIds) {
-				array.put(id);
-			}
 			StringBuilder response = new StringBuilder();
 			JSONObject msg = new JSONObject();
 			msg.put("registration_ids", array);

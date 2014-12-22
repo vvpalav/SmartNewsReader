@@ -1,5 +1,6 @@
 package com.example.helpers;
 
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.sql.PreparedStatement;
 
+import com.amazonaws.util.json.JSONArray;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 import com.mysql.jdbc.Connection;
@@ -133,6 +135,144 @@ public class DBHelper {
 	
 	public List<Integer> getCronEntry(int day, int timeTo, int timeFrom){
 		List<Integer> list = new ArrayList<Integer>();
+		String sql = "select source_id from cron_job where time >= ? "
+				+ " and time <= ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, timeTo);
+			stmt.setInt(2, timeFrom);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				list.add(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return list;
+	}
+	
+	public JSONObject getCompanyData(String title){
+		JSONObject json = new JSONObject();
+		String sql = "select * from news_sites_info where title = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, title);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()){
+				json.put("source_id", rs.getString(1));
+				json.put("title", rs.getString(2));
+				json.put("apikey", rs.getString(3));
+				json.put("link", rs.getString(4));
+			}
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
+	}
+	
+	public int insertNYTimesNewsItem(JSONObject json, JSONObject data){	
+		System.out.println("Inserting: " + json.toString());
+		
+		String sql = "insert into news_item_info values (?, ?, ?, ?, ?, ?, ?)";
+		try {
+			int count = getNewsItemCount(null, null);
+			String date = json.getString("published_date");
+			date = date.substring(0, date.indexOf("T"));
+			
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, count+1);
+			stmt.setString(2, data.getString("source_id"));
+			stmt.setString(3, json.getString("title"));
+			stmt.setString(4, json.getString("abstract"));
+			stmt.setString(5, "");
+			stmt.setString(6, date);
+			stmt.setString(7, json.getString("url"));
+			stmt.executeUpdate();
+			return count + 1;
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int getNewsItemCount(String title, String date){
+		String sql = "select count(*) from news_item_info ";
+		if(title != null && title.length() > 0){
+			sql += " a, news_sites_info b where a.source_id = b.source_id and "
+					+ " b.title = ? ";
+		}
+		if(date != null && date.length() > 0){
+			sql += " and a.datetime = ?";
+		}
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			if(title != null && title.length() > 0){
+				stmt.setString(1, title);
+			}
+			if(date != null && date.length() > 0){
+				stmt.setObject(2, Date.valueOf(date));
+			}
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public boolean checkIFNewsItemExist(String title, String date){
+		String sql = "select count(*) from news_item_info "
+				+ " where title like '%"+title+"%' and datetime = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setDate(1, Date.valueOf(date));
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			if(rs.getInt(1) > 0){
+				System.out.println("This item already exists");
+				return true;
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public JSONArray getGCMListForNewsSource(String source_id){
+		JSONArray list = new JSONArray();
+		String sql = "select gcm_id from user_info u, user_subscription_details b, "
+				+ " u.telephone = b.telephone and b.source_id = ?";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, source_id);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				list.put(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public JSONObject getNewsItemInfo(int item_id){
+		String sql = "select title, abstract, text, url, datetime from news_item_info where item_id = ?";
+		JSONObject json = new JSONObject();
+		try {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, item_id);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			json.put("title", rs.getString(1));
+			json.put("abstract", rs.getString(2));
+			json.put("text", rs.getString(3));
+			json.put("url", rs.getString(4));
+			json.put("datetime", rs.getString(5));
+		} catch (SQLException | JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 }
