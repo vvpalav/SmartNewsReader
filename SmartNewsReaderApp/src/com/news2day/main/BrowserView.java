@@ -4,6 +4,7 @@ package com.news2day.main;
 import com.news2day.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -16,6 +17,9 @@ public class BrowserView extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Bundle bundle = getIntent().getExtras();
+        url = bundle.getString("webUrl");
         setContentView(R.layout.browser_view);
 		//setContentView(R.layout.browser_view);
 		//wv = (WebView)findViewById(R.layout.webview1);
