@@ -18,31 +18,31 @@ import com.amazonaws.util.json.JSONObject;
 import com.example.helpers.DBHelper;
 import com.example.helpers.GCMSender;
 
-public class FeedZillaWordNewsRssReader {
+public class FeedZillaTopNews {
 	private Logger log = Logger.getLogger(FeedZillaWordNewsRssReader.class.getName());
-	private final String title = "FeedZilla World News";
-	private static FeedZillaWordNewsRssReader feedfZillaWorld;
+	private final String title = "FeedZilla Top News";
+	private static FeedZillaTopNews feedfZillaTopNews;
 	private JSONObject data;
 	private DBHelper db;
 
-	private FeedZillaWordNewsRssReader() {
+	private FeedZillaTopNews() {
 		db = DBHelper.getDBInstance();
 		data = db.getCompanyData(title);
 	}
 
-	public static void main(String[] args) {
-		FeedZillaWordNewsRssReader feedfZilla = FeedZillaWordNewsRssReader.getInstance();
-		feedfZilla.checkForNewItems();
+	public static void main(String[] args) throws JSONException {
+		FeedZillaTopNews feedfZillaTopNews = FeedZillaTopNews.getInstance();
+		feedfZillaTopNews.checkForNewItems();
 	}
 	
-	public synchronized static FeedZillaWordNewsRssReader getInstance() {
-		if (feedfZillaWorld == null) {
-			feedfZillaWorld = new FeedZillaWordNewsRssReader();
+	public synchronized static FeedZillaTopNews getInstance() {
+		if (feedfZillaTopNews == null) {
+			feedfZillaTopNews = new FeedZillaTopNews();
 		}
-		return feedfZillaWorld;
+		return feedfZillaTopNews;
 	}
 	
-	public void processfeedZillaWorldNewsCronRequest(){
+	public void processFeedZillaTopNewsCronRequest(){
 		try {
 			List<Integer> ll = checkForNewItems();
 			if(ll != null && ll.size() > 0){
@@ -80,7 +80,7 @@ public class FeedZillaWordNewsRssReader {
 
 	public JSONObject fetchTopStories() {
 		try {
-			String str = data.getString("link");;
+			String str = data.getString("link");
 			URL url = new URL(str);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestProperty("Content-Type", "application/json");

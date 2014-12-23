@@ -70,7 +70,7 @@ public class FeedZillaSportsRSSReader {
 					Date dateStr = parser.parse(j.getString("publish_date"));
 					parser = new SimpleDateFormat("yyyy-MM-dd");
 					if (!db.checkIFNewsItemExist(j.getString("title"), parser.format(dateStr))) {
-						list.add(db.insertfeedZillaWorldNewsNewsItem(j, data));
+						list.add(db.insertFeedZillaRssItem(j, data));
 					}
 				}
 			}
