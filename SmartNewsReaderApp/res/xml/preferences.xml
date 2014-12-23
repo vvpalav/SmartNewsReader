@@ -27,45 +27,28 @@
             android:defaultValue="false"
             android:key="pref_key_auto_delete"
             android:summary="Set duration at which you would like to recieve"
-            android:title="News Feeds Archive Time" />
-	        <CheckBoxPreference
-	            android:dependency="pref_key_auto_delete"
-	            android:key="pref_key_sms_delete_limit"
-	            android:title="1 day" />
-	        <CheckBoxPreference
-	            android:dependency="pref_key_auto_delete"
-	            android:key="pref_key_sms_delete_limit"
-	            android:title="7 days" />
-	        <CheckBoxPreference
-	            android:dependency="pref_key_auto_delete"
-	            android:key="pref_key_sms_delete_limit"
-	            android:title="15 days" />
-	        <CheckBoxPreference
-	            android:dependency="pref_key_auto_delete"
-	            android:key="pref_key_sms_delete_limit"
-	            android:title="1 month" />
+            android:title="News Feeds Delete Time" />
+			  <ListPreference
+			         android:dependency="pref_key_auto_delete"
+				     android:entries="@array/listOptions"
+				     android:entryValues="@array/listValues"
+				     android:key="listpref"
+				     android:summary="Delete news period"
+				     android:title="Delete preference" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="pref_key_auto_refresh"
             android:summary="Set duration at which you would like to recieve"
             android:title="News Feeds Refresh Time" />
+        
+        	<ListPreference
+			         android:dependency="pref_key_auto_refresh"
+				     android:entries="@array/listOptions1"
+				     android:entryValues="@array/listValues1"
+				     android:key="listpref1"
+				     android:summary="Refresh news period"
+				     android:title="Refresh preference" />
 
-        <CheckBoxPreference
-            android:dependency="pref_key_auto_refresh"
-            android:key="pref_key_sms_refresh_limit1"
-            android:title="3 hours" />
-        <CheckBoxPreference
-            android:dependency="pref_key_auto_refresh"
-            android:key="pref_key_mms_refresh_limit2"
-            android:title="6 hours" />
-        <CheckBoxPreference
-            android:dependency="pref_key_auto_refresh"
-            android:key="pref_key_mms_refresh_limit3"
-            android:title="12 hours" />
-        <CheckBoxPreference
-            android:dependency="pref_key_auto_refresh"
-            android:key="pref_key_mms_refresh_limit3"
-            android:title="1 day" />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_key_about_settings"

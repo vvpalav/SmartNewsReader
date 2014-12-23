@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="news_list_items">
-        <item >Home</item>
-        <item >Find People</item>
-        <item >Photos</item>
-        <item >Communities</item>
-        <item >Pages</item>
-        <item >What\'s Hot</item>
-    </string-array>
+   	<string-array name="news_list_items">
+        <item>Add sites to see news</item>
+    </string-array>
     <array name="news_list_icons">
         <item>@drawable/user_logo_25x25</item>
         <item>@drawable/user_logo_25x25</item>
@@ -16,4 +11,30 @@
         <item>@drawable/user_logo_25x25</item>
         <item>@drawable/user_logo_25x25</item>
     </array>
+
+    <string-array name="listOptions">
+        <item>1 day</item>
+        <item>7 days</item>
+        <item>15 days</item>
+        <item>1 month</item>
+    </string-array>
+    <string-array name="listValues">
+        <item>1</item>
+        <item>7</item>
+        <item>15</item>
+        <item>30</item>
+    </string-array>
+        <string-array name="listOptions1">
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+    </string-array>
+    <string-array name="listValues1">
+        <item>3</item>
+        <item>6</item>
+        <item>12</item>
+        <item>24</item>
+    </string-array>
+    
 </resources>
