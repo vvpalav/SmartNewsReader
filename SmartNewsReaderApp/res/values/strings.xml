@@ -24,5 +24,6 @@
     <string name="email">Email Address</string>
     <string name="save">Save</string>
     <string name="title_activity_add_site">AddSiteActivity</string>
+    <string name="title_activity_list_site">ListSiteActivity</string>
 
 </resources>

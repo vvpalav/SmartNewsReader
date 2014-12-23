@@ -6,6 +6,7 @@ import com.news2day.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -20,9 +21,11 @@ public class BrowserView extends Activity {
         
         Bundle bundle = getIntent().getExtras();
         url = bundle.getString("webUrl");
+		System.out.println("url : " + url);
         setContentView(R.layout.browser_view);
 		//setContentView(R.layout.browser_view);
-		//wv = (WebView)findViewById(R.layout.webview1);
+		wv = (WebView)findViewById(R.id.webView1);
+        //wv = new WebView(BrowserView.this);
 		wv.setWebViewClient(new WebViewClient());
 		wv.loadUrl(url);
 		

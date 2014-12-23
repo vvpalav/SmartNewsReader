@@ -81,6 +81,7 @@ public class ClientServerRequestHandler {
 				for(int i = 0; i < array.length(); i++){
 					db.insertNewsitemInfo(array.getJSONObject(i));
 				}
+				Log.i("ClientServerRequestHandler", "finshed processing .. adding received_response");
 				shared.edit().putBoolean("received_response", true).commit();
 			}
 		} catch (JSONException e) {

@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -66,11 +67,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public long insertNewsitemInfo(JSONObject object) {
 		try {
+			Log.i("DataBase Helper", "Inserting title.. " + object.getString("title"));
 			ContentValues values = new ContentValues();
-			values.put(NEWS_ITEM_INFO_ITEM_ID, object.getLong("item_id"));
+			values.put(NEWS_ITEM_INFO_ITEM_ID, object.getString("item_id"));
 			values.put(NEWS_ITEM_INFO_SOURCE_TITLE, object.getString("source_title"));
 			values.put(NEWS_ITEM_INFO_TITLE, object.getString("title"));
-			values.put(NEWS_ITEM_INFO_ABSTRACT, object.getLong("abstract"));
+			values.put(NEWS_ITEM_INFO_ABSTRACT, object.getString("abstract"));
 			values.put(NEWS_ITEM_INFO_TEXT, object.getString("text"));
 			values.put(NEWS_ITEM_INFO_URL, object.getString("url"));
 			values.put(NEWS_ITEM_INFO_DATETIME, object.getString("datetime"));
@@ -136,5 +138,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cursor.close();
 		}
 		return array;
+	}
+	
+	public boolean deleteSourceSite(String title){
+		return this.getWritableDatabase().delete(TABLE_NEWS_ITEM_INFO, 
+				NEWS_ITEM_INFO_SOURCE_TITLE + "='" + title+"'", null) > 0;
 	}
 }

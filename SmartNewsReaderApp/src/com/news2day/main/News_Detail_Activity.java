@@ -17,28 +17,35 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class News_Detail_Activity extends Activity{
+public class News_Detail_Activity extends Activity implements TextToSpeech.OnInitListener{
 	public String webURL = null;
 	protected static final int TIME = 200;
 	Button btn_speak;
-	TextView titleview = (TextView) findViewById(R.id.news_title);
-	TextView abtract = (TextView) findViewById(R.id.news_abstract);
-	TextView date = (TextView) findViewById(R.id.news_date);
+	TextView titleview;
+	TextView abtract;
+	TextView date ;
+	Button webV;
 	/** Called when the activity is first created. */
 
 	private TextToSpeech tts;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news_detail);
+		
 		Bundle bundle = getIntent().getExtras();
 		String jsonString = bundle.getString("json");
+		titleview = (TextView) findViewById(R.id.news_title1);
+		abtract = (TextView) findViewById(R.id.news_abstract1);
+		date = (TextView) findViewById(R.id.news_date1);
+		/** Called when the activity is first created. */
 		
 		
 		// Text bto speech 
-		
-		btn_speak = (Button)findViewById(R.id.button1);
+		tts = new TextToSpeech(this, this);
+		btn_speak = (Button)findViewById(R.id.play_now);
 		btn_speak.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -53,16 +60,24 @@ public class News_Detail_Activity extends Activity{
 		JSONObject json;
 		try {
 			json = new JSONObject(jsonString);
+			System.out.println("jsonString" + jsonString);
 		
-		
-		TextView titleview = (TextView) findViewById(R.id.news_title);
-		TextView abtract = (TextView) findViewById(R.id.news_abstract);
-		TextView date = (TextView) findViewById(R.id.news_date);
+		 titleview = (TextView) findViewById(R.id.news_title1);
+		 abtract = (TextView) findViewById(R.id.news_abstract1);
+		 date = (TextView) findViewById(R.id.news_date1);
 		
 		titleview.setText(json.getString("title"));
 		abtract.setText(json.getString("abstract"));
 		date.setText(json.getString("datetime"));
 		webURL = json.getString("url");
+		
+		if(webURL==null)
+		{
+			webV = (Button)findViewById(R.id.go_to_site);
+			webV.setEnabled(false);
+		}
+		
+		System.out.println("webURL : " + webURL);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,12 +86,10 @@ public class News_Detail_Activity extends Activity{
 
 	public void openWebView(View V){
 		Intent intent = new Intent(this,BrowserView.class);
+
 		intent.putExtra("webUrl", webURL);
 		startActivity(intent);		
 	}
-	
-	
-	
 	
 	
 	
@@ -99,9 +112,9 @@ public class News_Detail_Activity extends Activity{
 
 			int result = tts.setLanguage(Locale.US);
 
-			// tts.setPitch(5); // set pitch level
+			 tts.setPitch(-15); // set pitch level
 
-			// tts.setSpeechRate(2); // set speech speed rate
+			 tts.setSpeechRate(-10); // set speech speed rate
 
 			if (result == TextToSpeech.LANG_MISSING_DATA
 					|| result == TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -121,7 +134,8 @@ public class News_Detail_Activity extends Activity{
 	private void speakOut() {
 
 		String text = abtract.getText().toString();
-
+		Log.d("Text.....",text);
+		
 		tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 	
 	}
