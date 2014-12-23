@@ -82,6 +82,10 @@ public class RequestHandler {
 				db.addUserSubscription(object);
 				response.put("data", db.getNewsItemsFromTitle(object.getString("source_title")));
 				break;
+			case "DELETE_USER_SUBSCRIPTION":
+				db.deleteUserSubscription(object);
+				response.put("data", "Success");
+				break;
 			default:
 				response.put("message", "Unknown Transaction");
 				log.info("Unknown transaction type: "
