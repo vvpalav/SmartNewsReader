@@ -27,10 +27,9 @@ public class CronJobHandler {
 	}
 
 	public void startCronMonitoring() {
-		//while (flag) {
+		while (flag) {
 			try {
-				//Thread.sleep(sec * min * milisec);
-				Thread.sleep(1000);
+				Thread.sleep(sec * min * milisec);
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(new Date());
 				List<Integer> list = db.getCronEntry(cal.get(Calendar.DAY_OF_WEEK),
@@ -42,6 +41,6 @@ public class CronJobHandler {
 			} catch (InterruptedException | JSONException e) {
 				e.printStackTrace();
 			}
-		//}
+		}
 	}
 }

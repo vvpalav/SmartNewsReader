@@ -19,7 +19,7 @@ create table user_auth_codes (
 
 create table news_sites_info (
 	source_id	integer,
-	title		varchar(20),
+	title		varchar(50),
 	apikey		varchar(100),
 	apilink		text,
 	primary key (source_id, title) 
@@ -35,9 +35,8 @@ create table cron_job (
 create table news_item_info (
 	item_id		integer,
 	source_id	integer,
-	title		varchar(100),
+	title		text,
 	abstract	text,
-	text		text,
 	datetime	date,
 	url		    text,
 	primary key (item_id, source_id),
