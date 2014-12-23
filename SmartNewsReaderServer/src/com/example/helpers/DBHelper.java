@@ -409,7 +409,7 @@ public class DBHelper {
 		return -1;
 	}
 	
-	public int insertfeedZillaWorldNewsNewsItem(JSONObject json, JSONObject data){	
+	public int insertFeedZillaRssItem(JSONObject json, JSONObject data){	
 		System.out.println("Inserting: " + json.toString());
 		
 		String sql = "insert into news_item_info values (?, ?, ?, ?, ?, ?)";

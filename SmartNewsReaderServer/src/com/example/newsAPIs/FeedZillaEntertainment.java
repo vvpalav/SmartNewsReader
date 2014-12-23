@@ -18,31 +18,31 @@ import com.amazonaws.util.json.JSONObject;
 import com.example.helpers.DBHelper;
 import com.example.helpers.GCMSender;
 
-public class FeedZillaWordNewsRssReader {
+public class FeedZillaEntertainment {
 	private Logger log = Logger.getLogger(FeedZillaWordNewsRssReader.class.getName());
-	private final String title = "FeedZilla World News";
-	private static FeedZillaWordNewsRssReader feedfZillaWorld;
+	private final String title = "FeedZilla Entertainment";
+	private static FeedZillaEntertainment feedfZillaEntertainment;
 	private JSONObject data;
 	private DBHelper db;
 
-	private FeedZillaWordNewsRssReader() {
+	private FeedZillaEntertainment() {
 		db = DBHelper.getDBInstance();
 		data = db.getCompanyData(title);
 	}
 
-	public static void main(String[] args) {
-		FeedZillaWordNewsRssReader feedfZilla = FeedZillaWordNewsRssReader.getInstance();
-		feedfZilla.checkForNewItems();
+	public static void main(String[] args) throws JSONException {
+		FeedZillaEntertainment feedfZillaEntertainment = FeedZillaEntertainment.getInstance();
+		feedfZillaEntertainment.checkForNewItems();
 	}
 	
-	public synchronized static FeedZillaWordNewsRssReader getInstance() {
-		if (feedfZillaWorld == null) {
-			feedfZillaWorld = new FeedZillaWordNewsRssReader();
+	public synchronized static FeedZillaEntertainment getInstance() {
+		if (feedfZillaEntertainment == null) {
+			feedfZillaEntertainment = new FeedZillaEntertainment();
 		}
-		return feedfZillaWorld;
+		return feedfZillaEntertainment;
 	}
 	
-	public void processfeedZillaWorldNewsCronRequest(){
+	public void processFeedZillaEntertainmentCronRequest(){
 		try {
 			List<Integer> ll = checkForNewItems();
 			if(ll != null && ll.size() > 0){
@@ -80,7 +80,7 @@ public class FeedZillaWordNewsRssReader {
 
 	public JSONObject fetchTopStories() {
 		try {
-			String str = data.getString("link");;
+			String str = data.getString("link");
 			URL url = new URL(str);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestProperty("Content-Type", "application/json");
