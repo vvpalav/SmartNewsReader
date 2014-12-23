@@ -32,7 +32,7 @@ public class InputRegistrationCodeActivity extends Activity {
 	public static final String PROPERTY_REG_ID = "registration_id";
 	public static final String PROPERTY_APP_VERSION = "appVersion";
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-	private String SENDER_ID = "80266458481";
+	private String SENDER_ID = "717511677056";
 	public static final String TAG = "GCM Services";
 	private GoogleCloudMessaging gcm;
 	private Context context;

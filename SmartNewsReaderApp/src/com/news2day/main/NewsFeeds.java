@@ -7,8 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R.color;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.news2day.R;
 import com.news2day.database.DatabaseHelper;
@@ -62,16 +59,8 @@ public class NewsFeeds extends ActionBarActivity {
 			}
 		}
 
-		final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-				this, android.R.layout.simple_list_item_1, newsFeedsList){
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				if(convertView != null){
-					System.out.println("Found: " + newsFeedsList.get(position));
-				}
-				return super.getView(position, convertView, parent);
-			}
-		};
+		final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, 
+				android.R.layout.simple_list_item_1, newsFeedsList);
 				
 		ListView newsList = (ListView) findViewById(R.id.news_list);
 		newsList.setAdapter(arrayAdapter);

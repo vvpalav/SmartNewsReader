@@ -1,13 +1,15 @@
 package com.news2day.database;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.news2day.main.MainActivity;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -19,10 +21,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.news2day.main.MainActivity;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	// Database Version
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	// Database Name
 	private static final String DATABASE_NAME = "SmartNewsReaderDB";
@@ -35,9 +39,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String NEWS_ITEM_INFO_SOURCE_TITLE = "source_title";
 	public static final String NEWS_ITEM_INFO_TITLE = "title";
 	public static final String NEWS_ITEM_INFO_ABSTRACT = "abstract";
-	public static final String NEWS_ITEM_INFO_TEXT = "text";
 	public static final String NEWS_ITEM_INFO_URL = "url";
 	public static final String NEWS_ITEM_INFO_DATETIME = "datetime";
+	public static final String NEWS_ITEM_INFO_ARCHIVE = "archive_on_date";
 
 	// table create statement NEWS_ITEM_INFO
 	private static final String CREATE_TABLE_NEWS_ITEM_INFO = "CREATE TABLE IF NOT EXISTS "
@@ -46,8 +50,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			+ NEWS_ITEM_INFO_SOURCE_TITLE 	+ " VARCHAR(50),"
 			+ NEWS_ITEM_INFO_TITLE 			+ " TEXT,"
 			+ NEWS_ITEM_INFO_ABSTRACT 		+ " TEXT,"
-			+ NEWS_ITEM_INFO_TEXT 			+ " TEXT," 
 			+ NEWS_ITEM_INFO_URL 			+ " TEXT,"
+			+ NEWS_ITEM_INFO_ARCHIVE        + " DATE,"
 			+ NEWS_ITEM_INFO_DATETIME 		+ " DATETIME" + ")";
 
 	public DatabaseHelper(Context context) {
@@ -67,14 +71,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public long insertNewsitemInfo(JSONObject object) {
 		try {
-			Log.i("DataBase Helper", "Inserting title.. " + object.getString("title"));
+			SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainActivity
+							.getContextOfApplication());
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(java.sql.Date.valueOf(object.getString("datetime")));
+			cal.add(Calendar.DATE, shared.getInt("archieve", 10));
+			String time = cal.get(Calendar.YEAR)  + "-" + cal.get(Calendar.MONTH)+1 + "-" + cal.get(Calendar.DATE);
+			Log.i("DataBase Helper", "Inserting title.. " + object.getString("title")
+					+ " archieve date: " + time);
+			
 			ContentValues values = new ContentValues();
 			values.put(NEWS_ITEM_INFO_ITEM_ID, object.getString("item_id"));
 			values.put(NEWS_ITEM_INFO_SOURCE_TITLE, object.getString("source_title"));
 			values.put(NEWS_ITEM_INFO_TITLE, object.getString("title"));
 			values.put(NEWS_ITEM_INFO_ABSTRACT, object.getString("abstract"));
-			values.put(NEWS_ITEM_INFO_TEXT, object.getString("text"));
 			values.put(NEWS_ITEM_INFO_URL, object.getString("url"));
+			values.put(NEWS_ITEM_INFO_ARCHIVE, time);
 			values.put(NEWS_ITEM_INFO_DATETIME, object.getString("datetime"));
 			return this.getWritableDatabase().insert(TABLE_NEWS_ITEM_INFO, null, values);
 		} catch (JSONException e) {
@@ -116,7 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public JSONArray getNewsItemsForTitle(String title){
 		JSONArray array = new JSONArray();
-		String sql = "select item_id, source_title, title, abstract, text, url, datetime" +
+		String sql = "select item_id, source_title, title, abstract, url, datetime" +
 				" from news_item_info where source_title = '" + title + "'";
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
@@ -127,9 +139,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				json.put("source_title",cursor.getString(1));
 				json.put("title",cursor.getString(2));
 				json.put("abstract",cursor.getString(3));
-				json.put("text",cursor.getString(4));
-				json.put("url",cursor.getString(5));
-				json.put("datetime",cursor.getString(6));
+				json.put("url",cursor.getString(4));
+				json.put("datetime",cursor.getString(5));
 				array.put(json);
 			}
 		} catch (JSONException e) {
@@ -143,5 +154,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public boolean deleteSourceSite(String title){
 		return this.getWritableDatabase().delete(TABLE_NEWS_ITEM_INFO, 
 				NEWS_ITEM_INFO_SOURCE_TITLE + "='" + title+"'", null) > 0;
+	}
+	
+	public void archieveNewsItems(){
+		SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		String str = parse.format(new Date()).toString();
+		int val = this.getWritableDatabase().delete(TABLE_NEWS_ITEM_INFO, "archive_on_date = ?", new String[]{str});
+		Log.i("Deleting news archieves", "deleting items for date.... " + str + " result: " + val);
+	
+	}
+	
+	public void updateArchieve(int no){
+		String sql = "select datetime, item_id from news_item_info";
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(sql, null);
+		try {
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				Calendar cal = Calendar.getInstance();
+				
+				cal.setTime(java.sql.Date.valueOf(cursor.getString(0)));
+				cal.add(Calendar.DATE, no);
+				int mon= cal.get(Calendar.MONTH)+1;
+				String time = cal.get(Calendar.YEAR)  + "-" + mon + "-" + cal.get(Calendar.DATE);
+				ContentValues content = new ContentValues();
+				content.put(NEWS_ITEM_INFO_ARCHIVE, time);
+				db.update(TABLE_NEWS_ITEM_INFO, content, 
+						"item_id=?", new String[]{cursor.getString(1)});
+			}
+		} finally {
+			cursor.close();
+		}
+		
 	}
 }

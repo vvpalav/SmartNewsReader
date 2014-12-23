@@ -64,7 +64,7 @@
         android:layout_alignLeft="@+id/news_abstract1"
         android:layout_toLeftOf="@+id/go_to_site"
         android:onClick="playNews"
-        android:text="Play News" />
+        android:text="Play Again" />
 
 </RelativeLayout>
 </ScrollView>

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.news2day.R;
+import com.news2day.database.DatabaseHelper;
 
 public class MainActivity extends Activity {
 	private int progress = 0;
@@ -23,10 +24,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
 		contextOfApplication = getApplicationContext();
 		shared = PreferenceManager.getDefaultSharedPreferences(contextOfApplication);
+		if(!shared.contains("archieve")){
+			shared.edit().putInt("archieve", 10).commit();
+		}
 		final ProgressBar loading = (ProgressBar) findViewById(R.id.loadingBar);
+		DatabaseHelper db = new DatabaseHelper(this);
+		db.archieveNewsItems();
 		final Timer timer = new Timer();
 		TimerTask task = new TimerTask() {
 			public void run() {
