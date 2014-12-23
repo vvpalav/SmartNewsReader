@@ -3,74 +3,97 @@
     package="com.news2day"
     android:versionCode="1"
     android:versionName="1.0" >
-    
+
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-	<uses-permission android:name="android.permission.WAKE_LOCK"/>
-	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-	<uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name">
+        android:label="@string/app_name" >
         <activity
-            android:name="com.news2day.main.MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.news2day.main.AboutUs"
-            android:label="@string/app_name" 
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity
-            android:name="com.news2day.main.InputRegistrationCodeActivity"
-            android:label="@string/app_name" 
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity
-            android:name="com.news2day.main.LoginActivity"
-            android:label="@string/app_name" 
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity
-            android:name="com.news2day.main.NewsFeeds"
+            android:name=".main.AboutUs"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
-            android:name="com.news2day.main.NewsFeeds1"
+            android:name=".main.InputRegistrationCodeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait" >
         </activity>
-        
         <activity
-            android:name="com.news2day.main.BrowserView"
+            android:name=".main.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait" >
         </activity>
-        
         <activity
-            android:name="com.news2day.preference.Preferences"
-            android:label="@string/app_name" 
-            android:theme="@style/AppTheme">
+            android:name=".main.News_Detail_Activity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
-        
-        <meta-data android:name="com.google.android.gms.version"
-           android:value="@integer/google_play_services_version" />
+        <activity
+            android:name=".main.NewsFeeds"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".main.NewsFeeds1"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".main.BrowserView"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".preference.Preferences"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".main.AddSiteActivity"
+            android:label="@string/title_activity_add_site"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".main.ListSiteActivity"
+            android:label="@string/title_activity_list_site"
+            android:theme="@style/AppTheme" >
+        </activity>
     </application>
 
 </manifest>

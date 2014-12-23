@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
 
     <string name="app_name">News2day</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="about_us"> News2day is an application which provides latests news of your choice at click .\n\nTeam members :\nAbhishek Ghag\nVinayak Palav\nRahul Kumar</string>
-	<string name="sometext">sometext</string>
-	<string name="submit">Submit</string>
-	<string name="title_activity_input_registration_code">Registration</string>
+    <string name="sometext">sometext</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_input_registration_code">Registration</string>
     <string name="enter_code">Enter Registration Code</string>
-    
-   
+
     <!-- Strings related to login -->
     <string name="title_activity_login">Register</string>
     <string name="action_sign_in_register"><b>Register</b></string>
@@ -20,9 +18,12 @@
     <string name="error_incorrect_code">This code is invalid</string>
     <string name="error_incorrect_phone">This telephone is invalid</string>
     <string name="error_field_required">This field is required</string>
-   	<string name="updateServer">Validating</string>
+    <string name="updateServer">Validating</string>
     <string name="name">Name</string>
     <string name="phone">Phone With Country Code</string>
     <string name="email">Email Address</string>
     <string name="save">Save</string>
+    <string name="title_activity_add_site">AddSiteActivity</string>
+    <string name="title_activity_list_site">ListSiteActivity</string>
+
 </resources>

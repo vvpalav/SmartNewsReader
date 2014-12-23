@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_main">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+    >
+
+    <TextView
+        android:id="@+id/news_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/news_date1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_title1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/news_abstract1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/news_date1"
+        android:layout_marginTop="26dp"
+        android:text="TextView"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/go_to_site"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/news_date1"
+        android:background="@drawable/rounded_button"
+        android:layout_width="150dp"
+        android:layout_below="@+id/news_abstract1"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="50dp"
+        android:onClick="openWebView"
+        android:text="Go to web page" />
+
+    <Button
+        android:id="@+id/play_now"
+        style="?android:attr/buttonStyleSmall"
+        android:background="@drawable/rounded_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/go_to_site"
+        android:layout_alignBottom="@+id/go_to_site"
+        android:layout_alignLeft="@+id/news_abstract1"
+        android:layout_toLeftOf="@+id/go_to_site"
+        android:onClick="playNews"
+        android:text="Play News" />
+
+</RelativeLayout>
+</ScrollView>
