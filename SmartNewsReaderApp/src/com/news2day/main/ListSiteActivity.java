@@ -50,7 +50,6 @@ public class ListSiteActivity extends ActionBarActivity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(ListSiteActivity.this);			
 				builder.setMessage("Please make a choice for " + line);
 				builder.setPositiveButton("Switch", new DialogInterface.OnClickListener(){
-					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(ListSiteActivity.this, NewsFeeds.class);
 						intent.putExtra("title", line);
@@ -59,7 +58,6 @@ public class ListSiteActivity extends ActionBarActivity {
 					}
 				});
 				builder.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
-					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						try {
 							final SharedPreferences shared = PreferenceManager

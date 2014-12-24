@@ -48,9 +48,7 @@ public class News_Detail_Activity extends Activity implements TextToSpeech.OnIni
 		btn_speak = (Button)findViewById(R.id.play_now);
 		btn_speak.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				speakOut();
 			}
 		});
